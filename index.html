@@ -180,6 +180,16 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+        // 전시관 등록 폼 토글 함수
+function toggleInfoContainer() {
+    const infoContainer = document.getElementById('infoContainer');
+    // 현재 display 상태에 따라 토글
+    if (infoContainer.style.display === 'none' || infoContainer.style.display === '') {
+        infoContainer.style.display = 'block'; // 폼 보이기
+    } else {
+        infoContainer.style.display = 'none'; // 폼 숨기기
+    }
+}
       // 지도 초기화
 const map = L.map('map', {
     zoomControl: true,
@@ -227,7 +237,7 @@ function updateMarkerPopup(marker) {
     const popupContent = `
         <div>
             <b>ArtMap 공연장</b><br>
-            <img src="/artmap.jpg" 
+            <img src="/artmap.jpg"
                  alt="공연장 이미지" 
                  style="width:150px; margin:10px 0;"><br>
             이용시간: 10 - 20시<br>
