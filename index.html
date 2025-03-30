@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주소 검색 및 전시관 등록</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 70vh; /* 지도 크기 */
+            width: 100%;
+        }
+        .leaflet-control-zoom-in,
+        .leaflet-control-zoom-out {
+            width: 50px; /* 확대/축소 버튼 크기 */
+            height: 50px;
+            font-size: 24px;
+        }
+        #topControls {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        #topControls button {
+            padding: 10px;
+            font-size: 14px;
+            width: auto;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .checkboxGroup {
+            display: flex;
+            align-items: center;
+        }
+        .checkboxGroup label {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .checkboxGroup input[type="checkbox"] {
+            width: 20px; /* 체크박스 크기 */
+            height: 20px; /* 체크박스 크기 */
+            margin-right: 5px;
+        }
+        #topControls input {
+            flex-grow: 1; /* 주소 입력 필드가 남은 공간을 차지 */
+            padding: 10px; /* 버튼과 동일한 높이로 설정 */
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #infoContainer {
+            margin: 10px;
+            padding: 20px; /* 폼 내부 여백 추가 */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        #infoContainer input,
+        #infoContainer textarea,
+        #infoContainer button {
+            width: calc(100% - 20px); /* 양쪽 여백 포함 */
+            margin-bottom: 15px; /* 각 필드 간격 추가 */
+            padding: 15px; /* 필드 높이를 키움 */
+            font-size: 16px; /* 글자 크기 확대 */
+            border-radius: 4px; /* 모서리 둥글게 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 상단 컨트롤 -->
+    <div id="topControls">
+        <button onclick="getCurrentLocation()">내 위치</button>
+
+        <!-- 전시/공연 다중 선택 -->
+        <div class="checkboxGroup">
+            <label>
+                <input type="checkbox" id="exhibitionCheckbox" />
+                전시
+            </label>
+            <label>
+                <input type="checkbox" id="performanceCheckbox" />
+                공연
+            </label>
+        </div>
+
+        <input type="text" id="addressInput" placeholder="주소를 입력하세요" required />
+        <button onclick="searchAddress()">주소 검색</button>
+    </div>
+
+    <!-- 지도 -->
+    <div id="map"></div>
+
+    <!-- 전시관 등록 버튼 -->
+    <button id="registerButton" onclick="toggleInfoContainer()" style="width: 100%; margin-top: 10px; padding: 15px; font-size: 14px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+        전시관 등록하기
+    </button>
+
+    <!-- 정보 등록 폼 -->
+    <div id="infoContainer" style="display:none;">
+        <h3>전시관 정보 등록</h3>
+        <input type="text" id="museumName" placeholder="미술관 / 전시관 명칭" required />
+        <textarea id="museumDescription" placeholder="전시내용 및 일정" rows="5" required></textarea>
+        <input type="text" id="ticketLink" placeholder="현장 구매 가능 여부 및 예매사이트 링크" />
+        <input type="text" id="openingHours" placeholder="전시관 이용 가능 시간" required />
+        <label for="posterUpload">포스터 이미지 업로드:</label>
+        <input type="file" id="posterUpload" accept="image/*" />
+        <button onclick="addExhibition()">등록 완료</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // 지도 초기화
+      const map = L.map('map', {
+          zoomControl:true, // 줌 컨트롤 활성화
+          scrollWheelZoom:false, // 마우스 휠 확대/축소 비활성화
+      }).setView([37.5665,126.9780],18);
+
+      // 타일 레이어 추가
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution:'&copy OpenStreetMap contributors',
+      }).addTo(map);
+
+      // 내 위치 가져오기
+      function getCurrentLocation(){
+          if(navigator.geolocation){
+              navigator.geolocation.getCurrentPosition((position)=>{
+                  const coords=[position.coords.latitude,position.coords.longitude];
+                  map.setView(coords,18);
+                  L.marker(coords).addTo(map).bindPopup('내 위치').openPopup();
+              },()=>{
+                  alert("위치 정보를 가져올 수 없습니다.");
+              });
+          }else{
+              alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
+          }
+      }
+
+      // 주소 검색 함수
+      function searchAddress(){
+          const address=document.getElementById('addressInput').value.trim();
+          if(!address){
+              alert("주소를 입력해주세요!");
+              return;
+          }
+          const geocodeUrl=`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+          fetch(geocodeUrl)
+              .then(response=>response.json())
+              .then(data=>{
+                  if(data.length===0){
+                      alert("주소를 찾을 수 없습니다.");
+                      return;
+                  }
+                  const coords=[parseFloat(data[0].lat),parseFloat(data[0].lon)];
+                  map.setView(coords,18);
+                  L.marker(coords).addTo(map).bindPopup(`<b>${address}</b>`).openPopup();
+              })
+              .catch(()=>{
+                  alert("주소 검색 중 문제가 발생했습니다.");
+              });
+      }
+
+      // 페이지 로드 시 자동으로 위치 불러오기
+      window.onload = getCurrentLocation;
+
+      // 전시관 등록 폼 토글
+      function toggleInfoContainer(){
+          const infoContainer=document.getElementById('infoContainer');
+          infoContainer.style.display=infoContainer.style.display==='none'?'block':'none';
+      }
+
+      // 전시관 등록 함수 (추가 작업 필요 시 작성)
+      function addExhibition(){
+          alert('전시관이 등록되었습니다!');
+      }
+    </script>
+</body>
+</html>
