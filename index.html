@@ -6,6 +6,65 @@
     <title>Art Map🗺️</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
+        #topControls {
+            display: flex;
+            flex-wrap: wrap; /* 줄 바꿈 허용 */
+            align-items: center;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        #topControls button {
+            padding: 10px;
+            font-size: 14px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .checkboxGroup {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* 모바일에서 간격 추가 */
+        }
+        .checkboxGroup label {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .checkboxGroup input[type="checkbox"] {
+            width: 20px; /* 체크박스 크기 */
+            height: 20px; /* 체크박스 크기 */
+            margin-right: 5px;
+        }
+        #topControls input {
+            flex-grow: 1; /* 주소 입력 필드가 남은 공간을 차지 */
+            padding: 10px; /* 버튼과 동일한 높이로 설정 */
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    
+        /* 반응형 디자인 */
+        @media (max-width: 768px) { /* 태블릿 및 모바일 화면 */
+            #topControls {
+                flex-direction: column; /* 세로 정렬 */
+                align-items: stretch; /* 너비를 맞춤 */
+                gap: 10px; /* 요소 간격 추가 */
+            }
+            #topControls button, 
+            #topControls input {
+                width: 100%; /* 버튼과 입력 필드를 화면 너비에 맞춤 */
+                margin-right: 0; /* 여백 제거 */
+            }
+        }
         #map {
             height: 70vh; /* 지도 크기 */
             width: 100%;
@@ -122,68 +181,100 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
       // 지도 초기화
-      const map = L.map('map', {
-          zoomControl:true, // 줌 컨트롤 활성화
-          scrollWheelZoom:false, // 마우스 휠 확대/축소 비활성화
-      }).setView([37.5665,126.9780],18);
+const map = L.map('map', {
+    zoomControl: true,
+    scrollWheelZoom: false,
+}).setView([37.5665, 126.9780], 18);
 
-      // 타일 레이어 추가
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution:'&copy OpenStreetMap contributors',
-      }).addTo(map);
+// 타일 레이어 추가
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy OpenStreetMap contributors',
+}).addTo(map);
 
-      // 내 위치 가져오기
-      function getCurrentLocation(){
-          if(navigator.geolocation){
-              navigator.geolocation.getCurrentPosition((position)=>{
-                  const coords=[position.coords.latitude,position.coords.longitude];
-                  map.setView(coords,18);
-                  L.marker(coords).addTo(map).bindPopup('내 위치').openPopup();
-              },()=>{
-                  alert("위치 정보를 가져올 수 없습니다.");
-              });
-          }else{
-              alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
-          }
-      }
+let marker; // 마커 변수 선언
 
-      // 주소 검색 함수
-      function searchAddress(){
-          const address=document.getElementById('addressInput').value.trim();
-          if(!address){
-              alert("주소를 입력해주세요!");
-              return;
-          }
-          const geocodeUrl=`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
-          fetch(geocodeUrl)
-              .then(response=>response.json())
-              .then(data=>{
-                  if(data.length===0){
-                      alert("주소를 찾을 수 없습니다.");
-                      return;
-                  }
-                  const coords=[parseFloat(data[0].lat),parseFloat(data[0].lon)];
-                  map.setView(coords,18);
-                  L.marker(coords).addTo(map).bindPopup(`<b>${address}</b>`).openPopup();
-              })
-              .catch(()=>{
-                  alert("주소 검색 중 문제가 발생했습니다.");
-              });
-      }
+// 내 위치 가져오기
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const coords = [position.coords.latitude, position.coords.longitude];
 
-      // 페이지 로드 시 자동으로 위치 불러오기
-      window.onload = getCurrentLocation;
+            // 지도 중심 이동
+            map.setView(coords, 18);
 
-      // 전시관 등록 폼 토글
-      function toggleInfoContainer(){
-          const infoContainer=document.getElementById('infoContainer');
-          infoContainer.style.display=infoContainer.style.display==='none'?'block':'none';
-      }
+            // 마커 추가 (드래그 가능)
+            if (!marker) {
+                marker = L.marker(coords, { draggable: true }).addTo(map);
+                updateMarkerPopup(marker); // 팝업 업데이트
+                marker.on('dragend', () => {
+                    updateMarkerPopup(marker); // 드래그 후 팝업 업데이트
+                });
+            } else {
+                marker.setLatLng(coords); // 기존 마커 위치 업데이트
+            }
+        }, () => {
+            alert("위치 정보를 가져올 수 없습니다.");
+        });
+    } else {
+        alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
+    }
+}
 
-      // 전시관 등록 함수 (추가 작업 필요 시 작성)
-      function addExhibition(){
-          alert('전시관이 등록되었습니다!');
-      }
+// 팝업 내용 업데이트 함수
+function updateMarkerPopup(marker) {
+    const latLng = marker.getLatLng(); // 마커의 현재 위치 가져오기
+
+    const popupContent = `
+        <div>
+            <b>ArtMap 공연장</b><br>
+            <img src="/artmap.jpg" 
+                 alt="공연장 이미지" 
+                 style="width:150px; margin:10px 0;"><br>
+            이용시간: 10 - 20시<br>
+            <a href="https://example.com" target="_blank" style="color: blue; text-decoration: underline;">예매하기</a>
+        </div>
+    `;
+
+    marker.bindPopup(popupContent).openPopup();
+}
+
+// 주소 검색 함수
+function searchAddress() {
+    const address = document.getElementById('addressInput').value.trim();
+    if (!address) {
+        alert("주소를 입력해주세요!");
+        return;
+    }
+    const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+    fetch(geocodeUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length === 0) {
+                alert("주소를 찾을 수 없습니다.");
+                return;
+            }
+            const coords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
+            map.setView(coords, 18);
+
+            // 주소 검색 결과로 마커 이동 (드래그 가능)
+            if (!marker) {
+                marker = L.marker(coords, { draggable: true }).addTo(map);
+                updateMarkerPopup(marker); // 팝업 업데이트
+                marker.on('dragend', () => {
+                    updateMarkerPopup(marker); // 드래그 후 팝업 업데이트
+                });
+            } else {
+                marker.setLatLng(coords); // 기존 마커 위치 업데이트
+                updateMarkerPopup(marker);
+            }
+        })
+        .catch(() => {
+            alert("주소 검색 중 문제가 발생했습니다.");
+        });
+}
+
+// 페이지 로드 시 자동으로 위치 불러오기
+window.onload = getCurrentLocation;
     </script>
 </body>
 </html>
