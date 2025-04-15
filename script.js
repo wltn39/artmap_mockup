@@ -5,22 +5,22 @@ const rooms = [
         "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
         "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
       ],
-      title: "한국 Hwacheon-myeon, Hongcheon-gun",
+      title: " 우주의 신비, 화성시민홀",
       rating: 4.88,
       distance: "86km 거리",
       date: "4월 20일~25일",
-      price: "₩114,118 /박"
+      price: "₩100,000"
     },
     {
       images: [
         "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=600&q=80",
         "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80"
       ],
-      title: "게스트 선호 한옥",
+      title: "사랑 아픔, 송도갤러리 ",
       rating: 4.95,
       distance: "120km 거리",
       date: "5월 1일~5일",
-      price: "₩98,000 /박"
+      price: "₩98,000"
     }
   ];
   
