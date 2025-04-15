@@ -1,0 +1,225 @@
+:root {
+    --main: #FF385C;
+    --gray: #F7F7F7;
+    --border: #E0E0E0;
+    --text: #222;
+    --subtext: #717171;
+    --nav: #fff;
+  }
+  body {
+    margin: 0;
+    background: var(--gray);
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    color: var(--text);
+  }
+  .search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--gray);
+    padding: 16px 0 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .search-box {
+    background: #fff;
+    border-radius: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    width: 90vw;
+    max-width: 400px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0 18px;
+    font-size: 1rem;
+    color: var(--subtext);
+    border: none;
+  }
+  .search-menu-btn {
+    background: none;
+    border: none;
+    margin-left: -36px;
+    z-index: 2;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  .category-tabs {
+    display: flex;
+    overflow-x: auto;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 0 0 8px;
+    gap: 18px;
+    font-size: 0.95rem;
+  }
+  .category-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 8px 4px 8px;
+    cursor: pointer;
+    color: var(--subtext);
+    border-bottom: 2px solid transparent;
+    min-width: 60px;
+    flex: 0 0 auto;
+  }
+  .category-tab.selected {
+    color: var(--main);
+    font-weight: bold;
+    border-bottom: 2.5px solid var(--main);
+    background: #fff;
+  }
+  .category-tab svg {
+    margin-bottom: 2px;
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+  .room-list {
+    padding: 12px 0 80px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .room-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin: 0 8px;
+  }
+  .room-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: #eee;
+    overflow: hidden;
+  }
+  .room-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .img-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+  }
+  .img-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.7;
+  }
+  .img-dot.active {
+    background: var(--main);
+    opacity: 1;
+  }
+  .room-info {
+    padding: 14px 16px 16px 16px;
+  }
+  .room-title {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .room-rating {
+    margin-left: auto;
+    color: #FFB400;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .room-desc {
+    color: var(--subtext);
+    font-size: 0.97rem;
+    margin-bottom: 2px;
+  }
+  .room-date {
+    color: var(--subtext);
+    font-size: 0.93rem;
+    margin-bottom: 2px;
+  }
+  .room-price {
+    font-weight: bold;
+    font-size: 1.08rem;
+    margin-top: 2px;
+  }
+  .bottom-nav {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: 60px;
+    background: var(--nav);
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 20;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--subtext);
+    font-size: 0.85rem;
+    gap: 2px;
+    flex: 1;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .nav-item.selected {
+    color: var(--main);
+    font-weight: bold;
+  }
+  .nav-item svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+  .map-fab {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 76px;
+    z-index: 30;
+    background: #222;
+    color: #fff;
+    border-radius: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    padding: 12px 28px;
+    font-size: 1.08rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .map-fab:hover {
+    background: #444;
+  }
+  .map-fab svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+  ::-webkit-scrollbar { display: none; }
+  @media (max-width: 400px) {
+    .room-img-wrap { height: 160px; }
+  }
+  
