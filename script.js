@@ -84,40 +84,5 @@ const rooms = [
   
   // 지도 표시 버튼 클릭 이벤트
   document.getElementById('mapFab').addEventListener('click', function() {
-  document.getElementById('map').style.display = 'block';
-
-  var center = new kakao.maps.LatLng(37.480367, 127.011005); // 예술의전당
-
-  var options = {
-    center: center,
-    level: 3
-  };
-
-  var map = new kakao.maps.Map(document.getElementById('map'), options);
-
-  var marker = new kakao.maps.Marker({
-    position: center
-  });
-  marker.setMap(map);
-});
-  // 지도 div 표시
-  document.getElementById('map').style.display = 'block';
-
-  // 예술의전당 좌표 (위도, 경도)
-  var center = new kakao.maps.LatLng(37.480367, 127.011005);
-
-  // 지도 옵션
-  var options = {
-    center: center,
-    level: 3
-  };
-
-  // 지도 생성
-  var map = new kakao.maps.Map(document.getElementById('map'), options);
-
-  // 마커 생성
-  var marker = new kakao.maps.Marker({
-    position: center
-  });
-  marker.setMap(map);
-;
+    window.location.href = 'map.html';
+  }); 
