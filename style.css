@@ -6,6 +6,28 @@
     --subtext: #717171;
     --nav: #fff;
   }
+  .pie-chart {
+    --w: 90px;
+    --p: 90; /* 예약 퍼센트 */
+    width: var(--w);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      conic-gradient(#e5005a calc(var(--p)*1%), #eee 0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .pie-label {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 1.07rem;
+    color: #e5005a;
+    font-weight: bold;
+    letter-spacing: -1px;
+  }
   a,
 a:visited {
   color: inherit;         /* 또는 원하는 색상 */

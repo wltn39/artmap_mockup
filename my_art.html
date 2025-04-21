@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Art Map</title>
+  <link rel="icon" href="image/pavicon.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      color: #222;
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif;
+    }
+    .container {
+      max-width: 430px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    /* 상단 바 */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 20px 10px 20px;
+    }
+    .top-title {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: -1px;
+    }
+    .top-icons {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .top-icons svg {
+      width: 24px;
+      height: 24px;
+      color: #888;
+      stroke-width: 2;
+      cursor: pointer;
+      background: #f7f7f7;
+      border-radius: 50%;
+      padding: 7px;
+      box-sizing: content-box;
+      transition: background 0.15s;
+    }
+    .top-icons svg:hover {
+      background: #ececec;
+    }
+    /* 숙소 카드 */
+    .room-card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      border: 1.5px solid #f2f2f2;
+      margin: 0 20px 0 20px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+    }
+    .room-img-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: 18px 18px 0 0;
+      overflow: hidden;
+    }
+    .room-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      background: #eee;
+    }
+    .room-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #fff;
+      color: #222;
+      font-size: 0.97rem;
+      font-weight: 500;
+      border-radius: 12px;
+      padding: 4px 13px 4px 13px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid #eee;
+      letter-spacing: -0.5px;
+    }
+    .room-title {
+      font-size: 1.08rem;
+      font-weight: bold;
+      margin: 14px 0 4px 0;
+      padding: 0 10px;
+      line-height: 1.35;
+      word-break: keep-all;
+    }
+    .room-location {
+      font-size: 0.98rem;
+      color: #888;
+      margin: 0 0 0 0;
+      padding: 0 10px;
+      font-weight: 400;
+    }
+    /* 하단 네비게이션 */
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 60px;
+      background: #fff;
+      border-top: 1px solid #eee;
+      display: flex;
+      z-index: 100;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.03);
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 0.97rem;
+      text-decoration: none;
+      font-weight: 400;
+      height: 100%;
+      transition: color 0.2s;
+      padding: 0;
+    }
+    .nav-item.selected {
+      color: #e5005a;
+      font-weight: bold;
+    }
+    .nav-item.selected svg {
+      stroke: #e5005a !important;
+      color: #e5005a !important;
+    }
+    .nav-item svg {
+      margin-bottom: 2px;
+      width: 24px;
+      height: 24px;
+      display: block;
+      stroke: currentColor;
+      color: inherit;
+    }
+    .nav-item span {
+      font-size: 0.93rem;
+      letter-spacing: -0.5px;
+    }
+    @media (max-width: 430px) {
+      .container { max-width: 100vw; }
+      .bottom-nav { max-width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 상단 바 -->
+    <div class="top-bar">
+      <div class="top-title">숙소</div>
+      <div class="top-icons">
+        <!-- 검색 아이콘 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="17" y1="17" x2="21" y2="21"/>
+        </svg>
+        <!-- 리스트 아이콘 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="4" y="6" width="16" height="2" rx="1"/>
+          <rect x="4" y="11" width="16" height="2" rx="1"/>
+          <rect x="4" y="16" width="16" height="2" rx="1"/>
+        </svg>
+        <!-- 추가(플러스) 아이콘 -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="9"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+      </div>
+    </div>
+    <!-- 숙소 카드 -->
+    <a href = edit.html>
+    <div class="room-card">
+      <div class="room-img-wrap">
+        <img class="room-img" src="image/art_2.jpg" alt="숙소 이미지">
+        <span class="room-badge">● 게시 중</span>
+      </div>
+      <div class="room-title">제주 서귀포 | 본태박물관, 빛의 교회</div>
+      <div class="room-location">서귀포 산록남로762번길 20 </div>
+    </div>
+    </a>
+    <!-- 숙소 카드 -->
+    <div class="room-card">
+        <div class="room-img-wrap">
+          <img class="room-img" src="image/artmap.jpg" alt="숙소 이미지">
+          <span class="room-badge">● 게시 중</span>
+        </div>
+        <div class="room-title">인천 송도 | 송도갤러리, 인체의 신비</div>
+        <div class="room-location">인천 연수구 도르래길 22</div>
+      </div>
+  </div>
+  <!-- 하단 네비게이션 -->
+  <nav class="bottom-nav">
+    <a href="#" class="nav-item">
+      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M4 12L12 5l8 7"/>
+        <rect x="6" y="12" width="12" height="7" rx="2"/>
+      </svg>
+      <span>투데이</span>
+    </a>
+    <a href="#" class="nav-item">
+      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <path d="M16 3v4M8 3v4M3 9h18"/>
+      </svg>
+      <span>달력</span>
+    </a>
+    <a href="#" class="nav-item selected">
+      <svg width="24" height="24" fill="none" stroke="#e5005a" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M4 12L12 5l8 7"/>
+        <rect x="6" y="12" width="12" height="7" rx="2"/>
+      </svg>
+      <span>숙소</span>
+    </a>
+    <a href="#" class="nav-item">
+      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <path d="M8 15h8M8 11h8"/>
+      </svg>
+      <span>메시지</span>
+    </a>
+    <a href="#" class="nav-item">
+      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+        <line x1="4" y1="7" x2="20" y2="7"/>
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <line x1="4" y1="17" x2="20" y2="17"/>
+      </svg>
+      <span>메뉴</span>
+    </a>
+  </nav>
+</body>
+</html>
