@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+  <title>Art Map</title>
+  <link rel="icon" href="image/pavicon.png" type="image/png">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="style.css">
+  <style>    
+    
+    body {
+      margin: 0;
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif;
+      background: #fff;
+      color: #222;
+    }
+    .container {
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0 16px 90px 16px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 28px 0 24px 0;
+      letter-spacing: -1px;
+    }
+    .empty-trip-card {
+      border: 1.5px solid #f2f2f2;
+      border-radius: 16px;
+      padding: 32px 20px 24px 20px;
+      margin-bottom: 32px;
+      text-align: center;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+    }
+    .empty-trip-icon {
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .empty-trip-icon svg {
+      width: 80px;
+      height: 80px;
+      color: #e5005a;
+    }
+    .empty-trip-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .empty-trip-desc {
+      font-size: 0.97rem;
+      color: #888;
+      margin-bottom: 20px;
+    }
+    .search-btn {
+      display: inline-block;
+      background: #e5005a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      padding: 12px 0;
+      width: 100%;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 1.08rem;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .past-trip-list {
+      margin-bottom: 24px;
+    }
+    .past-trip {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .past-trip-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #eee;
+      margin-right: 14px;
+    }
+    .past-trip-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .past-trip-location {
+      font-weight: bold;
+      font-size: 1.01rem;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .past-trip-host {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 2px;
+    }
+    .past-trip-date {
+      font-size: 0.93rem;
+      color: #888;
+    }    
+
+    .home-fab-center {
+        position: fixed;
+        left: 50%;
+        bottom: 80px; /* 네비게이션 위에 보이도록 조정 */
+        transform: translateX(-50%);
+        z-index: 1000;
+        background: #222;
+        color: #fff;
+        border: none;
+        border-radius: 32px;
+        min-width: 150px;
+        height: 56px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3em;
+        padding: 0 32px;
+        gap: 12px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .home-fab-center:hover { background: #444; }
+      .home-fab-center svg {
+        width: 32px; height: 32px; fill: #fff; margin-right: 6px;
+      }
+      @media (max-width: 500px) {
+        .home-fab-center {
+          min-width: 110px; font-size: 1em; height: 46px; padding: 0 18px;
+        }
+        .home-fab-center svg { width: 22px; height: 22px; }
+     }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>전시</h1>
+    <div class="empty-trip-card">
+      <span class="empty-trip-icon">
+        <!-- 손 흔드는 아이콘 (이모지 대체) -->
+        <img src="image/geonsi.png" alt="내 일정" width="50" height="50" />
+      </span>
+      <div class="empty-trip-title">아직 예약된 전시가 없습니다!</div>
+      <div class="empty-trip-desc">신선한 자극을 주는, 다음 전시 계획을 세워보세요.</div>
+      <a href="index.html">
+      <button class="search-btn">전시 검색하기</button>
+    </a>
+    </div>
+
+    <div class="section-title">예전 관람</div>
+    <div class="past-trip-list">
+      <div class="past-trip">
+        <img class="past-trip-img" src="image/artmap.jpg" alt="전시 이미지">
+        <div class="past-trip-info">
+          <div class="past-trip-location">인천 송도갤러리, 인체의 신비</div>
+          <div class="past-trip-host">호스트: Joanne님</div>
+          <div class="past-trip-date">2024년 9월 9일 – 2024년 9월 10일</div>
+        </div>
+      </div>
+      <div class="past-trip">
+        <img class="past-trip-img" src="https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg" alt="숙소 이미지">
+        <div class="past-trip-info">
+          <div class="past-trip-location">서귀포 본태박물관, 빛의 교회</div>
+          <div class="past-trip-host">호스트: jaeho님</div>
+          <div class="past-trip-date">2023년 8월 14일 – 2023년 8월 15일</div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- 하단 중앙 홈으로 버튼 -->
+<button class="home-fab-center" id="homeFab" title="홈으로">
+    <svg viewBox="0 0 24 24">
+      <path d="M3 12L12 4l9 8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 21V12h6v9" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M21 21H3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>홈으로</span>
+</button>
+<!-- 하단 네비게이션 -->
+<div class="bottom-nav">
+    <div class="nav-item selected">
+      <a href="index.html">
+        <svg width="20" height="20" fill="none" stroke="#888" stroke-width="2.2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7"/>
+          <line x1="17" y1="17" x2="21" y2="21"/>
+        </svg>
+        <span>검색</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="#">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 21C12 21 4 13.5 4 8.5C4 5.42 6.42 3 9.5 3C11.24 3 12.91 3.81 14 5.08C15.09 3.81 16.76 3 18.5 3C21.58 3 24 5.42 24 8.5C24 13.5 16 21 16 21H12Z"/>
+        </svg>
+        <span>위시리스트</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="schedule.html">
+        <img src="image/geonsi.png" alt="내 일정" width="24" height="24" />
+        <span>내 일정</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="#">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span>메시지</span>
+      </a>
+    </div>
+    <a href="profile.html">
+        <div class="nav-item">
+          <!-- 프로필 (사람) -->
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M6 20v-2a4 4 0 0 1 8 0v2"/>
+          </svg>
+        </a>
+          프로필      
+        </div>
+      </div>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('homeFab').addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+  </script>
+  
+</body>
+</html>
+
+ 
