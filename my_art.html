@@ -105,59 +105,7 @@
       padding: 0 10px;
       font-weight: 400;
     }
-    /* 하단 네비게이션 */
-    .bottom-nav {
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
-      height: 60px;
-      background: #fff;
-      border-top: 1px solid #eee;
-      display: flex;
-      z-index: 100;
-      box-shadow: 0 -2px 12px rgba(0,0,0,0.03);
-    }
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-size: 0.97rem;
-      text-decoration: none;
-      font-weight: 400;
-      height: 100%;
-      transition: color 0.2s;
-      padding: 0;
-    }
-    .nav-item.selected {
-      color: #e5005a;
-      font-weight: bold;
-    }
-    .nav-item.selected svg {
-      stroke: #e5005a !important;
-      color: #e5005a !important;
-    }
-    .nav-item svg {
-      margin-bottom: 2px;
-      width: 24px;
-      height: 24px;
-      display: block;
-      stroke: currentColor;
-      color: inherit;
-    }
-    .nav-item span {
-      font-size: 0.93rem;
-      letter-spacing: -0.5px;
-    }
-    @media (max-width: 430px) {
-      .container { max-width: 100vw; }
-      .bottom-nav { max-width: 100vw; }
-    }
+ 
   </style>
 </head>
 <body>
@@ -208,42 +156,42 @@
   </div>
   <!-- 하단 네비게이션 -->
   <nav class="bottom-nav">
-    <a href="#" class="nav-item">
-      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M4 12L12 5l8 7"/>
-        <rect x="6" y="12" width="12" height="7" rx="2"/>
-      </svg>
-      <span>투데이</span>
-    </a>
-    <a href="#" class="nav-item">
-      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <rect x="3" y="5" width="18" height="14" rx="2"/>
-        <path d="M16 3v4M8 3v4M3 9h18"/>
-      </svg>
-      <span>달력</span>
-    </a>
-    <a href="#" class="nav-item selected">
-      <svg width="24" height="24" fill="none" stroke="#e5005a" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M4 12L12 5l8 7"/>
-        <rect x="6" y="12" width="12" height="7" rx="2"/>
-      </svg>
-      <span>숙소</span>
-    </a>
-    <a href="#" class="nav-item">
-      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <rect x="3" y="5" width="18" height="14" rx="2"/>
-        <path d="M8 15h8M8 11h8"/>
-      </svg>
-      <span>메시지</span>
-    </a>
-    <a href="#" class="nav-item">
-      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <line x1="4" y1="7" x2="20" y2="7"/>
-        <line x1="4" y1="12" x2="20" y2="12"/>
-        <line x1="4" y1="17" x2="20" y2="17"/>
-      </svg>
-      <span>메뉴</span>
-    </a>
-  </nav>
+    <nav class="bottom-nav">
+        <!-- 홈(체크) 아이콘 -->
+          <a href="host.html" class="nav-item selected">
+        <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 12L12 5l8 7" />
+          <rect x="4" y="12" width="16" height="7" rx="2" />
+          <path d="M9 16l2 2 4-4" />
+        </svg>
+              <span>투데이</span>
+            </a>
+            <a href="calendar.html" class="nav-item">
+              <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="16" rx="2"/>
+                <path d="M16 3v4M8 3v4M3 9h18"/>
+              </svg>
+              <span>달력</span>
+            </a>
+            <a href="my_art.html" class="nav-item">
+              <img src="image/geonsi.png" alt="내 일정" width="24" height="24" style="margin-bottom:2px;">
+              <span>내 전시</span>
+            </a>
+            <a href="#" class="nav-item">
+              <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="M8 15h8M8 11h8"/>
+              </svg>
+              <span>메시지</span>
+            </a>
+            <a href="#" class="nav-item">
+              <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="4" y1="7" x2="20" y2="7"/>
+                <line x1="4" y1="12" x2="20" y2="12"/>
+                <line x1="4" y1="17" x2="20" y2="17"/>
+              </svg>
+              <span>메뉴</span>
+            </a>
+          </nav>
 </body>
 </html>
