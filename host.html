@@ -6,6 +6,7 @@
   <link rel="icon" href="image/pavicon.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
+
   <style>
     body {
       margin: 0;
@@ -13,12 +14,11 @@
       color: #222;
       font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', Arial, sans-serif;
     }
-    .profile-container {
+    .container {
       max-width: 430px;
       margin: 0 auto;
-      padding: 0 0 90px 0;
+      padding: 0 0 80px 0;
       min-height: 100vh;
-      background: #fff;
       box-sizing: border-box;
     }
     .profile-header {
@@ -31,6 +31,7 @@
       font-size: 2rem;
       font-weight: bold;
       letter-spacing: -1px;
+      line-height: 1.2;
     }
     .profile-bell {
       width: 26px;
@@ -38,123 +39,126 @@
       stroke: #222;
       opacity: 0.7;
     }
-    .profile-main {
-      padding: 0 20px;
-    }
-    .profile-user-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-    .profile-user {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .profile-user-img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid #eee;
-    }
-    .profile-user-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .profile-user-name {
-      font-size: 1.07rem;
+    .greeting {
+      padding: 0 20px 8px 20px;
+      font-size: 1.55rem;
       font-weight: bold;
-    }
-    .profile-user-link {
-      font-size: 0.97rem;
-      color: #888;
-      font-weight: 400;
-    }
-    .profile-arrow {
-      width: 22px;
-      height: 22px;
-      stroke: #bbb;
-    }
-    .profile-host-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      border: 1.5px solid #f2f2f2;
-      padding: 18px 16px 18px 16px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 32px;
-      gap: 18px;
-    }
-    .host-card-img {
-      width: 64px;
-      height: 64px;
-      border-radius: 12px;
-      object-fit: cover;
-      background: #f9f9f9;
-      flex-shrink: 0;
-    }
-    .host-card-texts {
-      flex: 1;
-      min-width: 0;
-    }
-    .host-card-title {
-      font-size: 1.09rem;
-      font-weight: bold;
-      margin-bottom: 6px;
       line-height: 1.3;
     }
-    .host-card-desc {
-      font-size: 0.97rem;
+    .section {
+      padding: 0 20px;
+    }
+    .reservation-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .reservation-tab {
+      flex: 1;
+      padding: 7px 0;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      background: #fff;
+      font-size: 1rem;
       color: #888;
-      line-height: 1.4;
-    }
-    .profile-section-title {
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin: 0 0 10px 0;
-      padding-left: 2px;
-    }
-    .profile-setting-list {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 1px 8px rgba(0,0,0,0.03);
-      border: 1.5px solid #f2f2f2;
-      overflow: hidden;
-    }
-    .profile-setting-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 18px 18px 16px;
-      border-bottom: 1px solid #f5f5f5;
-      font-size: 1.01rem;
-      color: #222;
-      background: #fff;
+      text-align: center;
       cursor: pointer;
-      transition: background 0.15s;
+      font-weight: 500;
+      transition: border 0.2s, color 0.2s;
     }
-    .profile-setting-item:last-child {
-      border-bottom: none;
+    .reservation-tab.active {
+      border: 2px solid #222;
+      color: #222;
+      font-weight: bold;
     }
-    .profile-setting-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .reservation-card {
+      background: #fafafa;
+      border-radius: 14px;
+      border: 1.5px solid #f2f2f2;
+      padding: 38px 0 34px 0;
+      text-align: center;
+      margin-bottom: 18px;
     }
-    .profile-setting-icon {
-      width: 22px;
-      height: 22px;
-      color: #e5005a;
+    .reservation-card svg {
+      width: 38px;
+      height: 38px;
+      margin-bottom: 10px;
+      color: #bbb;
       opacity: 0.8;
     }
-    .profile-setting-arrow {
-      width: 20px;
-      height: 20px;
-      stroke: #bbb;
+    .reservation-card-text {
+      color: #888;
+      font-size: 1.07rem;
+      margin-top: 2px;
+    }
+    .all-reserv {
+      font-size: 1.01rem;
+      margin: 18px 0 18px 0;
+      color: #888;
+      font-weight: 500;
+    }
+    .help-section-title {
+      font-size: 1.09rem;
+      font-weight: bold;
+      margin: 24px 0 12px 0;
+    }
+    .help-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .help-item {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1.5px solid #f2f2f2;
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: 1.01rem;
+      gap: 14px;
+    }
+    .help-item svg {
+      width: 22px;
+      height: 22px;
+      color: #222;
+      flex-shrink: 0;
+    }
+    .tips-section-title {
+      font-size: 1.09rem;
+      font-weight: bold;
+      margin: 22px 0 10px 0;
+    }
+    .tips-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    .tip-card {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1.5px solid #f2f2f2;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.02);
+    }
+    .tip-img {
+      width: 68px;
+      height: 56px;
+      object-fit: cover;
+      background: #eee;
+      flex-shrink: 0;
+    }
+    .tip-info {
+      padding: 0 12px;
+      font-size: 1rem;
+      color: #222;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     /* 호스트 모드 전환 토스트 */
     .host-toast {
@@ -185,120 +189,132 @@
   </style>
 </head>
 <body>
-  <div class="profile-container">
+  <div class="container">
     <!-- 상단 헤더 -->
     <div class="profile-header">
-      <span class="profile-title">프로필</span>
+      <span class="profile-title"></span>
       <svg class="profile-bell" viewBox="0 0 24 24" fill="none" stroke-width="2">
         <path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18 14.158V11c0-3.07-1.64-5.64-5-6.32V4a1 1 0 0 0-2 0v.68C7.64 5.36 6 7.929 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 1 1-6 0v-1m6 0H9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <div class="profile-main">
-      <!-- 프로필 정보 -->
-      <div class="profile-user-row">
-        <div class="profile-user">
-          <img class="profile-user-img" src="https://randomuser.me/api/portraits/men/32.jpg" alt="프로필 이미지">
-          <div class="profile-user-info">
-            <span class="profile-user-name">Jaeho</span>
-            <span class="profile-user-link">프로필 열기</span>
-          </div>
-        </div>
-        <svg class="profile-arrow" viewBox="0 0 24 24" fill="none">
-          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+    <div class="greeting">Jaeho 님,<br>반갑습니다!</div>
+    <div class="section">
+      <div class="reservation-tabs">
+        <div class="reservation-tab active">금일 방문 예정(180명)</div>
+        <div class="reservation-tab">호스팅 전시/공연(3건)</div>
       </div>
-      <!-- 호스팅 안내 카드 -->
-      <div class="profile-host-card">
-        <div class="host-card-texts">
-          <div class="host-card-title">당신의 예술을<br>아트맵하세요</div>
-          <div class="host-card-desc">간단하게 전시를 시작하고 부수입을 올릴 수 있습니다.</div>
+      
+      <!-- 예약 현황 원형 그래프 -->
+<div class="reservation-card" style="background:#fafafa; border-radius:14px; border:1.5px solid #f2f2f2; padding:34px 0 28px 0; text-align:center; margin-bottom:18px;">
+  <div style="display:inline-block; position:relative; width:90px; height:90px; margin-bottom:10px;">
+    <svg width="90" height="90">      
+        stroke-dasharray="251.2"
+        stroke-dashoffset="25.12"
+        stroke-linecap="round"
+        style="transition:stroke-dashoffset 0.5s;"
+        transform="rotate(-90 45 45)"
+      />
+    </svg>
+    <div style="position:absolute; left:0; top:0; width:90px; height:90px; display:flex; flex-direction:column; align-items:center; justify-content:center;">      
+      <div class="reservation-card" style="display:flex; align-items:center; justify-content:center; gap:20px; background:#fafafa; border-radius:14px; border:1.5px solid #f2f2f2; padding:28px 0; text-align:center; margin-bottom:18px;">
+        <!-- 왼쪽: 원형 파이그래프 -->
+        <div class="pie-chart" style="--p:90;">
+          <span class="pie-label">90%</span>
         </div>
-        <img class="host-card-img" src="https://cdn-icons-png.flaticon.com/512/235/235861.png" alt="에어비앤비 호스트 안내">
+        <!-- 오른쪽: 텍스트 -->
+        <div style="font-size:1.15rem; color:#e5005a; font-weight:bold;">90% 예약</div>
       </div>
-      <!-- 설정 섹션 -->
-      <div class="profile-section-title">설정</div>
-      <div class="profile-setting-list">
-        <div class="profile-setting-item">
-          <div class="profile-setting-left">
-            <svg class="profile-setting-icon" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="8" r="4" stroke="#e5005a" stroke-width="2"/>
-              <path d="M6 20v-2a4 4 0 0 1 8 0v2" stroke="#e5005a" stroke-width="2"/>
-            </svg>
-            개인 정보
-          </div>
-          <svg class="profile-setting-arrow" viewBox="0 0 24 24" fill="none">
-            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="profile-setting-item">
-          <div class="profile-setting-left">
-            <svg class="profile-setting-icon" viewBox="0 0 24 24" fill="none">
-              <rect x="4" y="4" width="16" height="16" rx="2" stroke="#e5005a" stroke-width="2"/>
-              <path d="M8 12h8" stroke="#e5005a" stroke-width="2"/>
-            </svg>
-            로그인 및 보안
-          </div>
-          <svg class="profile-setting-arrow" viewBox="0 0 24 24" fill="none">
-            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="profile-setting-item">
-          <div class="profile-setting-left">
-            <svg class="profile-setting-icon" viewBox="0 0 24 24" fill="none">
-              <rect x="3" y="6" width="18" height="12" rx="2" stroke="#e5005a" stroke-width="2"/>
-              <path d="M3 10h18" stroke="#e5005a" stroke-width="2"/>
-            </svg>
-            결제 및 정산
-          </div>
-          <svg class="profile-setting-arrow" viewBox="0 0 24 24" fill="none">
-            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <!-- 호스트 모드 전환 토스트 -->
-    <a href = "host.html">
-    <div class="host-toast">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-        <path d="M12 19V5M5 12l7-7 7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-      호스트 모드로 전환
     </div>
   </div>
-  <!-- 하단 네비게이션 (기존 코드 그대로) -->
-  <div class="bottom-nav">
-    <a href="index.html" class="nav-item selected">
-      <svg width="24" height="24" fill="none" stroke="#e5005a" stroke-width="2.2" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="7"/>
-        <line x1="17" y1="17" x2="21" y2="21"/>
+  <div class="reservation-card-text" style="color:#888; font-size:1.07rem; margin-top:6px;">
+    최대 정원 200명 중 <span style="color:#e5005a; font-weight:bold;">180명</span>이 예약했습니다.
+  </div>
+</div>
+      
+      
+      <div class="all-reserv">이번 주 모든 예약 (850개)</div>
+      <div class="help-section-title">아트맵이 도와드리겠습니다</div>
+      <div class="help-list">
+        <div class="help-item">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="#222" stroke-width="2"/>
+            <path d="M8 15v-1a4 4 0 0 1 8 0v1" stroke="#222" stroke-width="2"/>
+            <circle cx="12" cy="9" r="2" stroke="#222" stroke-width="2"/>
+          </svg>
+          지역 호스트 클럽 가입하기
+        </div>
+        <div class="help-item">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="5" width="18" height="14" rx="2" stroke="#222" stroke-width="2"/>
+            <path d="M3 10h18" stroke="#222" stroke-width="2"/>
+          </svg>
+          도움말 센터 방문하기
+        </div>
+      </div>
+      <div class="tips-section-title">자료 및 팁</div>
+      <div class="tips-list">
+        <div class="tip-card">
+          <img class="tip-img" src="https://randomuser.me/api/portraits/men/12.jpg" alt="팁1">
+          <div class="tip-info">가입 및 노출 팁</div>
+        </div>
+        <div class="tip-card">
+          <img class="tip-img" src="https://randomuser.me/api/portraits/women/34.jpg" alt="팁2">
+          <div class="tip-info">아티스트 회원 / 장소 공유 회원</div>
+        </div>
+        <div class="tip-card">
+          <img class="tip-img" src="https://randomuser.me/api/portraits/men/45.jpg" alt="팁3">
+          <div class="tip-info">장소공유 회원 리스트 공유</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 하단 네비게이션 -->
+  <nav class="bottom-nav">
+<!-- 홈(체크) 아이콘 -->
+  <a href="host.html" class="nav-item selected">
+<svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+  <path d="M4 12L12 5l8 7" />
+  <rect x="4" y="12" width="16" height="7" rx="2" />
+  <path d="M9 16l2 2 4-4" />
+</svg>
+      <span>투데이</span>
+    </a>
+    <a href="calendar.html" class="nav-item">
+      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M16 3v4M8 3v4M3 9h18"/>
       </svg>
-      <span>검색</span>
+      <span>달력</span>
+    </a>
+    <a href="my_art.html" class="nav-item">
+      <img src="image/geonsi.png" alt="내 일정" width="24" height="24" style="margin-bottom:2px;">
+      <span>내 전시</span>
     </a>
     <a href="#" class="nav-item">
       <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M12 21C12 21 4 13.5 4 8.5C4 5.42 6.42 3 9.5 3C11.24 3 12.91 3.81 14 5.08C15.09 3.81 16.76 3 18.5 3C21.58 3 24 5.42 24 8.5C24 13.5 16 21 16 21H12Z"/>
-      </svg>
-      <span>위시리스트</span>
-    </a>
-    <a href="schedule.html" class="nav-item">
-      <img src="image/geonsi.png" alt="내 일정" width="24" height="24" style="margin-bottom:3px;">
-      <span>내 일정</span>
-    </a>
-    <a href="#" class="nav-item">
-      <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <path d="M8 15h8M8 11h8"/>
       </svg>
       <span>메시지</span>
     </a>
     <a href="#" class="nav-item">
       <svg width="24" height="24" fill="none" stroke="#bbb" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M6 20v-2a4 4 0 0 1 8 0v2"/>
+        <line x1="4" y1="7" x2="20" y2="7"/>
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <line x1="4" y1="17" x2="20" y2="17"/>
       </svg>
-      <span>프로필</span>
+      <span>메뉴</span>
     </a>
-  </div>
-  </div>
+  </nav>
+  <!-- 호스트 모드 전환 토스트 -->
+  <a href = "profile.html">
+    <div class="host-toast">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <path d="M12 19V5M5 12l7-7 7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>  
+      게스트 모드로 전환
+    </div>
+  </a>
+    </div>
 </body>
 </html>
